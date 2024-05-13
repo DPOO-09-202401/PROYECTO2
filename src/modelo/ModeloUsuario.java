@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.HashMap;
-
 public class ModeloUsuario {
 
     private String nombre;
@@ -9,6 +7,10 @@ public class ModeloUsuario {
     private ModeloRol rol;
     private String contrasena;
     private String telefono;
+    private Boolean autorizado;
+    private Double limitePago;
+
+    
 
     public ModeloUsuario(String nombre, String correo, ModeloRol rol, String contrasena, String telefono) {
         this.nombre = nombre;
@@ -16,6 +18,33 @@ public class ModeloUsuario {
         this.rol = rol;
         this.contrasena = contrasena;
         this.telefono = telefono;
+    }
+
+    public ModeloUsuario(String nombre, String correo, ModeloRol rol, String contrasena, String telefono,
+            Boolean autorizado, Double limitePago) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.rol = rol;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
+        this.autorizado = autorizado;
+        this.limitePago = limitePago;
+    }
+
+    public Boolean getAutorizado() {
+        return autorizado;
+    }
+
+    public void setAutorizado(Boolean autorizado) {
+        this.autorizado = autorizado;
+    }
+
+    public Double getLimitePago() {
+        return limitePago;
+    }
+
+    public void setLimitePago(Double limitePago) {
+        this.limitePago = limitePago;
     }
 
     public String getNombre() {
@@ -50,13 +79,9 @@ public class ModeloUsuario {
         this.contrasena = contrasena;
     }
 
-
-
     public String getTelefono() {
         return telefono;
     }
-
-
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;

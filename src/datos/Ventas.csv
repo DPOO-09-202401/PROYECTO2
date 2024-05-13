@@ -1,0 +1,6 @@
+id,tituloPieza,emailDuenoAnterior,emailNuevoDueno,precio,fecha,tipoPago,tipoVenta, confirmacionAdmin
+1,Sample Title,cliente@email.com,cliente@email.com,100.5,2024-05-11,EFECTIVO,VENTA_DIRECTA,true
+2,Another Title,example4@example.com,pepe@email.com,200.75,2024-05-11,TARJETA_CREDITO,VENTA_DIRECTA,true
+3,Yet Another Title,example7@example.com,cliente@email.com,150.25,2024-05-11,TARJETA_CREDITO,VENTA_DIRECTA,true
+4,la monda,pepe@email.com,pepe@email.com,2000000.0,2024-05-12,TRANSFERENCIA_ELECTRONICA,VENTA_DIRECTA,true
+5,remonda,pepe@email.com,cliente@email.com,150.0,2024-05-12,TARJETA_CREDITO,SUBASTA,true

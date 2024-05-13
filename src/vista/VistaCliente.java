@@ -1,7 +1,5 @@
 package vista;
 
-import java.util.HashMap;
-
 import controlador.LogicaUsuarios;
 import modelo.ModeloRol;
 import modelo.ModeloUsuario;
@@ -10,6 +8,7 @@ import utilidades.Utilidades;
 public class VistaCliente {
     private LogicaUsuarios logicaUsuarios = new LogicaUsuarios();
     private ModeloUsuario usuarioActual;
+    private VistasPiezas vistasPiezas = new VistasPiezas();
 
     public static void main(String[] args){
         VistaCliente vista = new VistaCliente();
@@ -50,24 +49,35 @@ public class VistaCliente {
         System.out.println("5. Ofertar en subasta");
         System.out.println("6. Consultar mis piezas");
         System.out.println("7. Consultar piezas bloqueadas por mi");
+        System.out.println("8. NUEVO Consultar historial de una pieza");
         
-        System.out.println("8. Salir");
+        System.out.println("9. Salir");
         System.out.println("--------------------");
     }
 
     private void ejecutarOpciones(){
         Boolean continuar  = true ;
         while (continuar) {
+            Utilidades.lectorConsola("Enter para continuar ->");
             imprimirOpciones();
-            Integer opcion = Integer.parseInt(Utilidades.lectorConsola("Ingrese opcion a escoger: "));
+            Integer opcion = 0;
+            try {
+                opcion = Integer.parseInt(Utilidades.lectorConsola("Ingrese opcion a escoger: "));
+            } catch (Exception e) {
+                opcion = 0;
+            }
             switch (opcion) {
                 case 1:
+                    // VER PERFIL
                     this.imprimirPerfil();
                     break;
                 case 2:
-                    
+                    // VER PIEZAS EN VENTA
+                    this.vistasPiezas.consultarPiezasEnVenta();
                     break;
                 case 3:
+                    // SOLICITAR COMPRA DE PIEZA EN VENTA
+                    this.vistasPiezas.solicitarCompraDePieza(usuarioActual);
                     
                     break;
                 case 4:
@@ -77,8 +87,14 @@ public class VistaCliente {
                 case 6:
                     break;
                 case 7:
+                    // CONSULTAR LAS PIEZAS BLOQUEADAS POR EL CLIENTE ACTUAL
+                    this.vistasPiezas.consultarPiezasBloqueadasPorCliente(usuarioActual);
                     break;
                 case 8:
+                    // HISTORIAL DE UNA PIEZA
+                    this.vistasPiezas.consultarHisorialPieza();
+                    break;
+                case 9:
                     continuar = false;
                     break;
 
@@ -91,5 +107,7 @@ public class VistaCliente {
     private void imprimirPerfil(){
         ModeloUsuario u = this.usuarioActual;
         System.out.println("-> "+u.getNombre()+", "+u.getCorreo()+", "+u.getRol()+", "+u.getTelefono());
+        System.out.println("    -> Autorizado: "+u.getAutorizado());
+        System.out.println("    -> Limite de compras: "+u.getLimitePago());
     }
 }

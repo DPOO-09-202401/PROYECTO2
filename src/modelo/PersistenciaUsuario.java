@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PersistenciaUsuario implements Persistencia{
@@ -23,11 +24,17 @@ public class PersistenciaUsuario implements Persistencia{
 		String[] partes = fila.split(",");
 		String email = partes[0].strip();
 		String nombre = partes[1].strip();
-		String rol = partes[2].strip();
+		ModeloRol rol = ModeloRol.valueOf(partes[2].strip());
 		String contrasena = partes[3].strip();
 		String telefono = partes[4].strip();
 		
-		ModeloUsuario usuario = new ModeloUsuario(nombre, email, ModeloRol.valueOf(rol), contrasena, telefono);
+		ModeloUsuario usuario = new ModeloUsuario(nombre, email, rol, contrasena, telefono);
+		if (usuario.getRol().equals(ModeloRol.CLIENTE)){
+            Boolean autorizado = Boolean.parseBoolean(partes[5].strip());
+            Double limitePago = Double.parseDouble(partes[6].strip());
+            usuario.setAutorizado(autorizado);
+            usuario.setLimitePago(limitePago);
+        }
 		
 		usuarios.put(email, usuario);
 		fila = bufferedReader.readLine();
@@ -41,12 +48,38 @@ public class PersistenciaUsuario implements Persistencia{
     @Override
     public void actualizar() throws IOException, FileNotFoundException {
         FileWriter editor = new FileWriter(ruta + nombreArchivo);
-        editor.write(cabecera + "\n");
+        
+        ArrayList<String[]> filas = new ArrayList<>();
         
         for (ModeloUsuario u : usuarios.values()) {
-            String row = u.getCorreo() + "," + u.getNombre() + "," + u.getRol() + "," + u.getContrasena()+","+u.getTelefono();
+            String autorizado = "null";
+            if (!(u.getAutorizado() == null)){
+                autorizado = u.getAutorizado().toString();
+            }
+            String limitePago = "null";
+            if (!(u.getLimitePago() == null)){
+                limitePago = u.getLimitePago().toString();
+            }
+            String[] fila = {
+                u.getCorreo(),
+                u.getNombre(),
+                u.getRol().toString(),
+                u.getContrasena(),
+                u.getTelefono(),
+                autorizado,
+                limitePago,
+            };
+            
+            filas.add(fila);
+        }
+        
+        editor.write(cabecera + "\n");
+
+        for (String[] fila : filas) {
+            String row = String.join(",", fila);
             editor.append(row + "\n");
         }
+
         editor.flush();
 		editor.close();
     }

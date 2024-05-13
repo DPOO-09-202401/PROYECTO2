@@ -7,6 +7,7 @@ import java.util.HashMap;
 import modelo.ModeloRol;
 import modelo.ModeloUsuario;
 import modelo.PersistenciaUsuario;
+import utilidades.Utilidades;
 
 public class LogicaUsuarios implements Logica<ModeloUsuario>{
 
@@ -34,14 +35,29 @@ public class LogicaUsuarios implements Logica<ModeloUsuario>{
 
     @Override
     public HashMap<String, ModeloUsuario> consultarTodos() {
-        HashMap<String, ModeloUsuario> usuarios =  persistenciaUsuario.usuarios;
+        HashMap<String, ModeloUsuario> usuarios =  PersistenciaUsuario.usuarios;
         return usuarios;
+    }
+    
+    public HashMap<String, ModeloUsuario> consultarClientes(){
+        HashMap<String, ModeloUsuario> usuarios =  PersistenciaUsuario.usuarios;
+        HashMap<String, ModeloUsuario> filtro = new HashMap<>();
+        for (ModeloUsuario u: usuarios.values()){
+            if (u.getRol().equals(ModeloRol.CLIENTE)){
+                filtro.put(u.getCorreo(), u);
+            }
+        }
+        return filtro;
     }
 
     @Override
-    public ModeloUsuario editarUno() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'editarUno'");
+    public ModeloUsuario editarUno(ModeloUsuario usuario) throws Exception {
+        if (!PersistenciaUsuario.usuarios.containsKey(usuario.getCorreo())){
+            throw new Exception("Usuario no encontrado");
+        };
+        PersistenciaUsuario.usuarios.put(usuario.getCorreo(), usuario);
+        persistenciaUsuario.actualizar();
+        return usuario;
     }
 
     @Override
@@ -66,6 +82,13 @@ public class LogicaUsuarios implements Logica<ModeloUsuario>{
         if (PersistenciaUsuario.usuarios.containsKey(nuevoUsuario.getContrasena())){
             throw new Exception("Correo duplicado");
         };
+        if (nuevoUsuario.getTelefono().length() != 10){
+            throw new Exception("El telefono debe tener 10 dígitos");
+        }
+        if (!Utilidades.esNumerico(nuevoUsuario.getTelefono())){
+            throw new Exception("El telefono debe ser numérico");
+        }
+        
         PersistenciaUsuario.usuarios.put(nuevoUsuario.getCorreo(), nuevoUsuario);
         persistenciaUsuario.actualizar();
         return nuevoUsuario;

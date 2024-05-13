@@ -1,0 +1,6 @@
+titulo,nombreAutor,emailDueno,tipo,materiales,bloqueada,precioMinimo,estado,emailOfertante,tipoDeVenta
+Yet Another Title,Michael Johnson,cliente@email.com,VIDEO,material7 material8 material9,false,150.25,VENDIDA,null,null
+Sample Title,John Doe,cliente@email.com,PINTURA,material1 material2 material3,false,100.5,VENDIDA,null,null
+la monda,el caremonda,pepe@email.com,NFT,algo vaina,false,2000000.0,VENDIDA,null,null
+remonda,mondoso,cliente@email.com,NFT,algo otracosa,false,150.0,VENDIDA,null,null
+Another Title,Jane Smith,pepe@email.com,ESCULTURA,material4 material5 material6,false,200.75,VENDIDA,null,null

@@ -9,9 +9,9 @@ public interface Logica<T> {
 
     public T consultarUno(String identificador) throws Exception;
 
-    public HashMap<String, T> consultarTodos();
+    public <S extends Object> HashMap<S, T> consultarTodos();
 
-    public T editarUno();
+    public T editarUno(T model) throws Exception;
 
     public void eliminarUno(String identificador) throws Exception;
 

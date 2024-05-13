@@ -1,0 +1,16 @@
+email,nombre,rol,contrasena,telefono,autorizado,limitePago
+admin@email.com,John Admin,ADMINISTRADOR,123,1234567890,null,null
+pepe@email.com,pepe,CLIENTE,321,1231231231,true,9.999999999999999E14
+cliente@email.com,John Admin,CLIENTE,123,1231231231,true,200.0
+example9@example.com,Christopher Anderson,CLIENTE,password9,9012345678,true,0.0
+example6@example.com,Sarah Lee,EMPLEADO,password6,6789012345,null,null
+example8@example.com,Amanda Taylor,EMPLEADO,password8,8901234567,null,null
+example7@example.com,Alexander Martinez,CLIENTE,password7,7890123456,true,0.0
+example2@example.com,Jane Smith,EMPLEADO,password2,2345678901,null,null
+john@example.com,John Doe,CLIENTE,password1,1234567890,true,0.0
+example5@example.com,David Wilson,ADMINISTRADOR,password5,5678901234,null,null
+example10@example.com,Jennifer Garcia,ADMINISTRADOR,password10,0123456789,null,null
+pedro@email.com,pedro,CLIENTE,4321,9999999999,false,0.0
+example4@example.com,Emily Brown,CLIENTE,password4,4567890123,false,0.0
+example3@example.com,Michael Johnson,EMPLEADO,password3,3456789012,null,null
+empleado@email.com,John Empleado,EMPLEADO,123,1234567890,null,null
