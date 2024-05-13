@@ -101,4 +101,8 @@ public class LogicaVentas implements Logica<ModeloVenta> {
 
     }
 
+    public HashMap<Integer, ModeloVenta> consultarTodasLasVentas(){
+        return PersistenciaVentas.ventas;
+    }
+
 }

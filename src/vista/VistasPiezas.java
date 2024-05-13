@@ -87,7 +87,7 @@ public class VistasPiezas {
             System.out.println("Estados posibles: BODEGA, EXHIBICION");
             ModeloEstado estado = ModeloEstado
                     .valueOf(Utilidades.lectorConsola("Ingrese el estado inicial de la pieza -> "));
-            System.out.println("Tipos de venta posibles : " + ModeloTipoDeVenta.values().toString());
+            System.out.println("Tipos de venta posibles : " + Arrays.asList(ModeloTipoDeVenta.values()));
             ModeloTipoDeVenta tipoDeVenta = ModeloTipoDeVenta
                     .valueOf(Utilidades.lectorConsola("Ingrese el tipo de venta de la pieza -> "));
             ModeloPiezas pieza = new ModeloPiezas(titulo, nombreAutor, emailDueno, tipo, materiales, bloqueada,
@@ -470,11 +470,15 @@ public class VistasPiezas {
         }
     }
 
-    public void consultarHisorialPieza(){
+    public void consultarHistorialPieza(){
         try {
             String titulo = Utilidades.lectorConsola("Ingrese el titulo de la pieza -> ");
             ModeloPiezas pieza = logicaPiezas.consultarUno(titulo);
+            this.imprimirPieza(pieza);
             ArrayList<ModeloVenta> ventas = logicaVentas.consultarHistorialDePieza(titulo);
+            if (ventas.isEmpty()) {
+                System.out.println("No hay ventas registradas para esta pieza");
+            }
             for (ModeloVenta v : ventas) {
                 System.out.println("Venta # " + v.getId() + " - " + v.getFecha() + " - " + v.getPrecio() + " - " + v.getTipoPago());
                 System.out.println("    -> Dueño anterior: " + v.getEmailDuenoAnterior());
@@ -482,6 +486,39 @@ public class VistasPiezas {
             }
         } catch (Exception e) {
             System.out.println("Error consultando el historial de la pieza: " + e.getMessage());
+        }
+    }
+
+    public void consultarPerfilArtista() {
+        try {
+            String nombreAutor = Utilidades.lectorConsola("Ingrese el nombre del autor -> ");
+            HashMap<String, ModeloPiezas> piezas = logicaPiezas.consultarPorAutor(nombreAutor);
+            imprimirPiezas(piezas);
+            HashMap<Integer, ModeloVenta> ventas = logicaVentas.consultarTodasLasVentas();
+            HashMap<Integer, ModeloVenta> filtro = new HashMap<>();
+            for (ModeloVenta v : ventas.values()) {
+                if (piezas.containsKey(v.getTituloPieza())) {
+                    filtro.put(v.getId(), v);
+                }
+            }
+            for (ModeloVenta v : filtro.values()) {
+                System.out.println("Venta # " + v.getId() + " - " + v.getFecha() + " - " + v.getPrecio() + " - " + v.getTipoPago());
+                System.out.println("    -> Dueño anterior: " + v.getEmailDuenoAnterior());
+                System.out.println("    -> Nuevo Dueño: " + v.getEmailNuevoDueno());
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error consultando el perfil del artista: " + e.getMessage());
+        }
+    }
+
+    public void consultarMisPiezas(ModeloUsuario usuarioActual) {
+        // TODO Auto-generated method stub
+        try {
+            throw new UnsupportedOperationException("Unimplemented method 'consultarMisPiezas'");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            System.out.println(e.getMessage());
         }
     }
 

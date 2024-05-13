@@ -2,9 +2,13 @@ package vista;
 
 import java.util.HashMap;
 
+import controlador.LogicaPiezas;
 import controlador.LogicaUsuarios;
+import controlador.LogicaVentas;
+import modelo.ModeloPiezas;
 import modelo.ModeloRol;
 import modelo.ModeloUsuario;
+import modelo.ModeloVenta;
 import utilidades.Utilidades;
 
 public class VistaAdmin {
@@ -60,7 +64,9 @@ public class VistaAdmin {
         System.out.println("16. Confirmar venta");
         System.out.println("17. Denegar compra");
         System.out.println("18. NUEVO Consultar historial de una pieza");
-        System.out.println("19. Salir");
+        System.out.println("19. NUEVO Consultar perfil de un artista");
+        System.out.println("20. NUEVO Consultar perfil de un cliente");
+        System.out.println("21. Salir");
         System.out.println("--------------------");
 
     }
@@ -154,15 +160,67 @@ public class VistaAdmin {
                     break;
                 case 18:
                     //CONSULTAR HISTORIAL DE UNA PIEZA
-                    this.vistasPiezas.consultarHisorialPieza();
+                    this.vistasPiezas.consultarHistorialPieza();
                     break;
                 case 19:
+                    //CONSULTAR PERFIL DE UN ARTISTA
+                    this.vistasPiezas.consultarPerfilArtista();
+                    break;
+                case 20:
+                    //CONSULTAR PERFIL DE UN CLIENTE
+                    this.consultarPerfilCliente();
+
+                    break;
+                case 21:
                     continuar = false;
                     break;
 
                 default:
                     break;
             }
+        }
+    }
+
+    private void consultarPerfilCliente() {
+        try {
+            LogicaVentas logicaVentas = new LogicaVentas();
+            LogicaPiezas logicaPiezas = new LogicaPiezas();
+            // perfil
+            String correo = Utilidades.lectorConsola("Ingrese el correo del cliente: ");
+            ModeloUsuario u = logicaUsuarios.consultarUno(correo);
+            if (!u.getRol().equals(ModeloRol.CLIENTE)){
+                throw new Exception("El usuario no es un cliente");
+            }
+            imprimirPerfil(u);
+            //compras
+            System.out.println("Compras realizadas: ");
+            HashMap<Integer, ModeloVenta> compras = new HashMap<>();
+            for (ModeloVenta v : logicaVentas.consultarTodasLasVentas().values()){
+                if (v.getEmailNuevoDueno().equals(u.getCorreo())){
+                    compras.put(v.getId(), v);
+                }
+            }
+
+            for (ModeloVenta v : compras.values()){
+                System.out.println("-> "+v.getId()+", "+v.getTituloPieza()+", "+v.getEmailNuevoDueno()+", "+v.getPrecio()+", "+v.getFecha());
+            }
+
+            // dueño
+            System.out.println("Piezas de las que es dueño: ");
+            HashMap<String, ModeloPiezas> piezas = new HashMap<>();
+            for (ModeloPiezas p : logicaPiezas.consultarTodos().values()){
+                if (p.getEmailDueno().equals(u.getCorreo())){
+                    piezas.put(p.getTitulo(), p);
+                }
+            }
+
+            for (ModeloPiezas p : piezas.values()){
+                vistasPiezas.imprimirPieza(p);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error consultando el perfil del cliente");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -175,6 +233,10 @@ public class VistaAdmin {
             }
         }
 
+    }
+
+    private void imprimirPerfil(ModeloUsuario u) {
+        System.out.println("-> " + u.getNombre() + ", " + u.getCorreo() + ", " + u.getRol() + ", " + u.getTelefono());
     }
 
     private void eliminarUsuario(){

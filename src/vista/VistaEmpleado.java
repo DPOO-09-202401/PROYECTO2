@@ -51,8 +51,9 @@ public class VistaEmpleado {
         System.out.println("7. Registrar oferta en subasta");
         System.out.println("8. Finalizar subasta");
         System.out.println("9. NUEVO Consultar historial de una pieza");
+        System.out.println("10. NUEVO Consultar historial de una artista");
 
-        System.out.println("10. Salir");
+        System.out.println("11. Salir");
         System.out.println("--------------------");
     }
 
@@ -103,10 +104,14 @@ public class VistaEmpleado {
                     break;
                 case 9:
                     //HISTORIAL DE UNA PIEZA
-                    this.vistasPiezas.consultarHisorialPieza();
+                    this.vistasPiezas.consultarHistorialPieza();
                     break;
                 
                 case 10:
+                    //HISTORIAL DE UNA PIEZA
+                    this.vistasPiezas.consultarPerfilArtista();
+                    break;
+                case 11:
                     continuar = false;
                     break;
 

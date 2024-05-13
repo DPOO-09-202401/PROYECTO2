@@ -92,4 +92,14 @@ public class LogicaPiezas implements Logica<ModeloPiezas> {
         }
     }
 
+    public HashMap<String, ModeloPiezas> consultarPorAutor(String nombreAutor) {
+        HashMap<String, ModeloPiezas> piezasPorAutor = new HashMap<>();
+        for (ModeloPiezas pieza : PersistenciaPieza.piezas.values()) {
+            if (pieza.getNombreAutor().equals(nombreAutor)) {
+                piezasPorAutor.put(pieza.getTitulo(), pieza);
+            }
+        }
+        return piezasPorAutor;
+    }
+
 }

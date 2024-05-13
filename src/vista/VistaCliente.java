@@ -45,13 +45,12 @@ public class VistaCliente {
         System.out.println("1. Consultar perfil");
         System.out.println("2. Consultar piezas en venta");
         System.out.println("3. Solicitar compra de pieza");
-        System.out.println("4. Consultar piezas en subasta");
-        System.out.println("5. Ofertar en subasta");
-        System.out.println("6. Consultar mis piezas");
-        System.out.println("7. Consultar piezas bloqueadas por mi");
-        System.out.println("8. NUEVO Consultar historial de una pieza");
+        System.out.println("4. Consultar mis piezas");
+        System.out.println("5. Consultar piezas bloqueadas por mi");
+        System.out.println("6. NUEVO Consultar historial de una pieza");
+        System.out.println("7. NUEVO Consultar perfil de un artista");
         
-        System.out.println("9. Salir");
+        System.out.println("8. Salir");
         System.out.println("--------------------");
     }
 
@@ -81,20 +80,22 @@ public class VistaCliente {
                     
                     break;
                 case 4:
+                    // CONSULTAR MIS PIEZAS
+                    this.vistasPiezas.consultarMisPiezas(usuarioActual);
                     break;
                 case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
                     // CONSULTAR LAS PIEZAS BLOQUEADAS POR EL CLIENTE ACTUAL
                     this.vistasPiezas.consultarPiezasBloqueadasPorCliente(usuarioActual);
                     break;
-                case 8:
+                case 6:
                     // HISTORIAL DE UNA PIEZA
-                    this.vistasPiezas.consultarHisorialPieza();
+                    this.vistasPiezas.consultarHistorialPieza();
                     break;
-                case 9:
+                case 7:
+                    // CONSULTAR PERFIL DE UN ARTISTA
+                    this.vistasPiezas.consultarPerfilArtista();
+                    break;
+                case 8:
                     continuar = false;
                     break;
 
