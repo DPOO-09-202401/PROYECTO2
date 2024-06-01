@@ -108,6 +108,6 @@ public class VistaGraficaMain extends JFrame implements ActionListener{
         CardLayout cl = (CardLayout) (vistas.getLayout());
         cl.show(vistas, vistaActual);
         
-    }}
+    }
 
 }

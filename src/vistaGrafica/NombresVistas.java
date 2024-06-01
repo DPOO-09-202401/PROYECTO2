@@ -14,5 +14,5 @@ public enum NombresVistas {
 
     public String getNombre() {
         return nombre;
-    }}
+    }
 }
