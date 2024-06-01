@@ -83,5 +83,5 @@ public class VistaLogin extends JPanel {
         add(Box.createVerticalStrut(20));
         add(botonConfirmar);
 
-    }
+    }}
 }
